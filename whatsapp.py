@@ -31,7 +31,7 @@ class WhatsApp:
             soup = BeautifulSoup(self.browser.page_source, "html.parser")
             for i in soup.find_all("div", class_="_2nY6U _3C4Vf"):
                 if i.find("div", class_="_3OvU8"):
-                    username = i.find("span", class_="_3q9s6").text
+                    username = i.find("div", class_="zoWT4").text
                     usernames.append(username)
             initial += 10
         # Remove duplicates
@@ -41,7 +41,7 @@ class WhatsApp:
         messages = list()
         search = self.browser.find_element(*WhatsAppElements.search)
         search.send_keys(name+Keys.ENTER)
-        time.sleep(3)
+        time.sleep(1)
         soup = BeautifulSoup(self.browser.page_source, "html.parser")
         for i in soup.find_all("div", class_="message-in"):
             message = i.find("span", class_="selectable-text")
@@ -50,7 +50,7 @@ class WhatsApp:
                 messages.append(message2.text)
         messages = list(filter(None, messages))
         return messages
-    def send_message(self,message,wait=100):
+    def send_message(self,message,wait=10):
         WebDriverWait(self.browser,wait).until(EC.presence_of_element_located(WhatsAppElements.form))
         form = self.browser.find_element(*WhatsAppElements.form)
         form.send_keys(message+Keys.ENTER)
@@ -59,7 +59,7 @@ class WhatsApp:
         # footer_message = self.browser.find("footer",class_="_2cYbV")
         # form_text = footer_message.find("div",class_="copyable-area").find("div",class_="_6h3Ps")
         # form_text.find("div",class_="_13NKt copyable-text selectable-text").sendKeys(message)
-    def tutup_tab_user(self,wait=100):
+    def tutup_tab_user(self,wait=10):
         WebDriverWait(self.browser,wait).until(EC.presence_of_element_located(WhatsAppElements.header_user))
         header_user = self.browser.find_element(*WhatsAppElements.header_user)
         header_user.click()

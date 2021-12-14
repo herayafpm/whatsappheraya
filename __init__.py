@@ -9,4 +9,6 @@ while(True):
         latest_msg = messages[messgaes_len-1]
         if(latest_msg == 'Hai'):
             whatsapp.send_message('Halo')
+        if(latest_msg == 'Cuk'):
+            whatsapp.send_message('Ya')
         whatsapp.tutup_tab_user()
